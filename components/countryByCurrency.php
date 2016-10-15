@@ -2,22 +2,27 @@
 
 // Build the request uri
 $URI = 'https://restcountries.eu/rest/v1/currency/';
-$CURRENCY = 'USD';
-$ENDPOINT = $URI.$CURRENCY;
+
+// Any currency code can go here
+$CURRENCY = 'gbp';
+
+// Join the two components of the request
+$ENDPOINT = $URI . $CURRENCY;
 $REQUEST = file_get_contents($ENDPOINT);
 
-// format the response as an array
+// Format the response as an array
 $responseArray = json_decode($REQUEST, true);
 
-// initialise array of countries
+// Initialise array of countries
 $countriesList = [];
 
-// iterate through the array to get the names of countries
+// Iterate through the array to get the names of countries
 for ($i = 0; $i < count($responseArray); $i++ ) {
     array_push($countriesList, $responseArray[$i]["name"]);
 }
 
+// Turn array into a string seperated by commas and spaces
+$countriesStringList = implode(', ', $countriesList);
 
-echo '<pre>';
-var_dump($countriesList);
-echo '</pre>';
+// Echo out the list, for luls
+echo '<p>' . $countriesStringList . '</p>';
