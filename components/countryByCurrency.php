@@ -4,26 +4,23 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Build the request uri
-$URI = 'https://restcountries.eu/rest/v1/currency/';
-
-// Any currency code can go here
-$CURRENCY = 'GBP';
-
-// Join the two components of the request
-$ENDPOINT = $URI . $CURRENCY;
-$REQUEST = file_get_contents($ENDPOINT);
-
-// Format the response as an array
-$responseArray = json_decode($REQUEST, true);
-
 // Create the country list in a function
-function createCountriesList($responseArray) {
+function createList($curCode) {
+
+    global $countriesResult;
+
+    // Build the request uri
+    $URI = 'https://restcountries.eu/rest/v1/currency/';
+
+    // Join the two components of the request
+    $ENDPOINT = $URI . $curCode;
+    $REQUEST = file_get_contents($ENDPOINT);
+
+    // Format the response as an array
+    $responseArray = json_decode($REQUEST, true);
 
     // Initialise array of countries
-    $countriesList = [];
-
-    global $countriesStringList;
+    $countriesList = array();
 
     // Iterate through the array to get the names of countries
     for ($i = 0; $i < count($responseArray); $i++ ) {
@@ -31,13 +28,8 @@ function createCountriesList($responseArray) {
     }
 
     // Turn array into a string seperated by commas and spaces
-    $countriesStringList = implode(', ', $countriesList);
+    $countriesResult = implode(", ", $countriesList);
 
-    return $countriesStringList;
+    return $countriesResult;
 
 }
-
-createCountriesList($responseArray);
-
-// Echo out the list, for luls
-echo '<p>' . $countriesStringList . '</p>';
