@@ -1,10 +1,9 @@
 <?php
 include 'errors.php';
-
 // Create the country list in a function
 function createList($curCode) {
 
-    global $countriesResult;
+    global $countriesList;
 
     // Build the request uri
     $URI = 'https://restcountries.eu/rest/v1/currency/';
@@ -24,9 +23,6 @@ function createList($curCode) {
         array_push($countriesList, $responseArray[$i]["name"]);
     }
 
-    // Turn array into a string seperated by commas and spaces
-    $countriesResult = implode(", ", $countriesList);
-
-    return $countriesResult;
+    return $countriesList;
 
 }
