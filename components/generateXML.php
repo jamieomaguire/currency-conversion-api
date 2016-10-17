@@ -1,10 +1,5 @@
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-ini_set('max_execution_time', 600);
-error_reporting(E_ALL);
-
+include 'errors.php';
 include 'countryByCurrency.php';
 
 // Insert API key here
