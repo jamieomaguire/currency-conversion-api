@@ -9,8 +9,8 @@ require('./components/errors.php');
 // currencyGrabber();
 
 // error handling
-if(!empty($_GET['code'])){
-    $code = $_GET['code'];
+if(!empty($_GET['from'])){
+    $code = $_GET['from'];
     $xml = simplexml_load_file('./data/currencies.xml');
 
     $match = false;
@@ -29,3 +29,23 @@ if(!empty($_GET['code'])){
         echo $error->asXml();
     }
 }
+
+getCurrencyCodes();
+?>
+<form action="index.php" method="post">
+    <label for="amount">Amount</label>
+    <input type="text" name="amount">
+    <label for="from">From</label>
+    <select class="" name="from">
+        <?php foreach($currencyCodeArray as $code) { ?>
+            <option value=""><?php echo $code; ?></option>
+        <?php } ?>
+    </select>
+    <label for="to">To</label>
+    <select class="" name="to">
+        <?php foreach($currencyCodeArray as $code) { ?>
+            <option value=""><?php echo $code; ?></option>
+        <?php } ?>
+    </select>
+    <input type="submit" value="SEND">
+</form>

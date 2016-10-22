@@ -77,8 +77,17 @@ function currencyGrabber(){
 
       }
     }
-
-
     $xml->asXML("./data/currencies.xml");
+}
 
+// get list of currency codes
+function getCurrencyCodes(){
+    global $currencyCodeArray;
+    $xml = simplexml_load_file('./data/currencies.xml');
+    $currencyCodeArray = [];
+    for($i = 0; $i < count($xml); $i++) {
+        $currencyCode = $xml->currency[$i]['code'];
+        array_push($currencyCodeArray, $currencyCode);
+    }
+    return $currencyCodeArray;
 }
