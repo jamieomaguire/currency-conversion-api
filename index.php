@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 include ('./components/functions.php');
 require('./components/errors.php');
 // currencyGrabber();
+getCurrencyCodes();
 
 // error handling
 if(!empty($_GET['from'])){
@@ -30,22 +31,41 @@ if(!empty($_GET['from'])){
     }
 }
 
-getCurrencyCodes();
+
 ?>
-<form action="index.php" method="post">
-    <label for="amount">Amount</label>
-    <input type="text" name="amount">
-    <label for="from">From</label>
-    <select class="" name="from">
-        <?php foreach($currencyCodeArray as $code) { ?>
-            <option value=""><?php echo $code; ?></option>
-        <?php } ?>
-    </select>
-    <label for="to">To</label>
-    <select class="" name="to">
-        <?php foreach($currencyCodeArray as $code) { ?>
-            <option value=""><?php echo $code; ?></option>
-        <?php } ?>
-    </select>
-    <input type="submit" value="SEND">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Currency Conversion Interface</title>
+    <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+    <form class="interface-form" action="index.php" method="post">
+        <div class="input-box">
+            <label class="input-label" for="amount">Amount</label>
+            <input class="input-text" type="text" name="amount">
+        </div>
+        <div class="input-box">
+            <label class="input-label" for="from">From</label>
+            <select class="input-select" name="from">
+                <?php foreach($currencyCodeArray as $code) { ?>
+                    <option value=""><?php echo $code; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="input-box">
+            <label class="input-label" for="to">To</label>
+            <select class="input-select" name="to">
+                <?php foreach($currencyCodeArray as $code) { ?>
+                    <option value=""><?php echo $code; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <input class="input-submit" type="submit" value="SEND">
+
+    </form>
+</body>
+</html>
